@@ -100,26 +100,40 @@
 
     var joystick;
     var position;
+
+    function updatePosition(data) {
+        if (!data.vector) {
+            return
+        }
+        xField.innerHTML = data.vector.x;
+        yField.innerHTML = data.vector.y;
+
+        if (window.AppInventor) {
+            window.AppInventor.setWebViewString(JSON.stringify({
+                x: data.vector.x,
+                y: data.vector.y
+            }));
+        }
+    }
+
+    xField.innerHTML = 0;
+    yField.innerHTML = 0;
+
     joystick = nipplejs.create(sampleJoystick);
     joystick.on('start end', function (evt, data) {
-        position = data.position;
-        xField.innerHTML = position.x;
-        yField.innerHTML = position.y;
+        updatePosition(data)
     }).on('move end', function (evt, data) {
-        position = data.position;
-        xField.innerHTML = position.x;
-        yField.innerHTML = position.y;
+        updatePosition(data)
     }).on('dir:up plain:up dir:left plain:left dir:down' +
         'plain:down dir:right plain:right',
         function (evt, data) {
-            position = data.position;
-            xField.innerHTML = position.x;
-            yField.innerHTML = position.y;
+            updatePosition(data)
         }
     ).on('pressure', function (evt, data) {
-        position = data.position;
-        xField.innerHTML = position.x;
-        yField.innerHTML = position.y;
+        updatePosition(data)
+    }).on('end', function (evt, data) {
+        xField.innerHTML = 0;
+        yField.innerHTML = 0;
     });
 </script>
 </body>
