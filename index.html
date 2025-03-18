@@ -6,6 +6,11 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js"></script>
     <style>
+        * {
+            /*Enable panning and pinch zoom gestures, but disable additional non-standard gestures such as double-tap to zoom.*/
+            touch-action: manipulation;
+        }
+
         /* Make the joystick appear in the bottom-left corner */
         #zone_joystick {
             position: fixed;
