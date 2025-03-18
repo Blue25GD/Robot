@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="
+         https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js
+         "></script>
+   </head>
+   <body>
+      <div id="zone_joystick">
+      </div>
+      <div>
+         <div id="position">
+            position :
+            <ul>
+               <li class="x">x : <span class='data'></span></li>
+               <li class="y">y : <span class='data'></span></li>
+            </ul>
+         </div>
+      </div>
+      <script>
+         var s = function(sel) {
+         return document.querySelector(sel);
+         };
+         var sId = function(sel) {
+         return document.getElementById(sel);
+         };
+         
+         var radius = 100;
+         
+         var sampleJoystick = {
+         mode: 'static',
+         position: {
+         left: '50%',
+         top: '50%'
+         },
+         size: radius*2,
+         color: 'black'
+         };
+         
+         var elDebug = sId('position');
+         var xField = elDebug.querySelector('.x .data');
+         var yField = elDebug.querySelector('.y .data');
+         
+         var joystick;
+         var position;
+         joystick = nipplejs.create(sampleJoystick);
+         joystick.on('start end', function(evt, data) {
+         position = data.position;
+         xField.innerHTML = position.x;
+         yField.innerHTML = position.y;
+         }).on('move end', function(evt, data) {
+         position = data.position;
+         xField.innerHTML = position.x;
+         yField.innerHTML = position.y;
+         }).on('dir:up plain:up dir:left plain:left dir:down' +
+         'plain:down dir:right plain:right',
+         function(evt, data) {
+         position = data.position;
+         xField.innerHTML = position.x;
+         yField.innerHTML = position.y;
+         }
+         ).on('pressure', function(evt, data) {
+         position = data.position;
+         xField.innerHTML = position.x;
+         yField.innerHTML = position.y;
+         });
+         
+         
+      </script>
+   </body>
+</html>
