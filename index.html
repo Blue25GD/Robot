@@ -1,84 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
-      <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js"></script>
-      <style>
-         /* Make the joystick appear in the bottom-left corner */
-         #zone_joystick {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js"></script>
+    <style>
+        /* Make the joystick appear in the bottom-left corner */
+        #zone_joystick {
             position: fixed;
-            left: 10%;
-            bottom: 15%;
+            /*left: 100px;*/
+            /*bottom: 100px;*/
             width: 100px; /* You can adjust this size to suit the joystick */
             height: 100px; /* You can adjust this size to suit the joystick */
-         }
+        }
 
-         /* Center the joystick within the container */
-         #zone_joystick .nipple {
+        /* Center the joystick within the container */
+        #zone_joystick .nipple {
             margin: auto;
-         }
-      </style>
-   </head>
-   <body>
-      <div id="zone_joystick"></div>
-      <div>
-         <div id="position">
-            position :
-            <ul>
-               <li class="x">x : <span class='data'></span></li>
-               <li class="y">y : <span class='data'></span></li>
-            </ul>
-         </div>
-      </div>
-      <script>
-         var s = function(sel) {
-            return document.querySelector(sel);
-         };
-         var sId = function(sel) {
-            return document.getElementById(sel);
-         };
-         
-         var radius = 100;
-         
-         var sampleJoystick = {
-            mode: 'static',
-            position: {
-               bottom: '15%',
-               left: '10%'
-            },
-            size: radius * 2,
-            color: 'black'
-         };
-         
-         var elDebug = sId('position');
-         var xField = elDebug.querySelector('.x .data');
-         var yField = elDebug.querySelector('.y .data');
-         
-         var joystick;
-         var position;
-         joystick = nipplejs.create(sampleJoystick);
-         joystick.on('start end', function(evt, data) {
+        }
+
+        .button {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background-color: #BFBFBF;
+           border: none;
+           border-radius: 100%;
+           transition: background-color 0.3s;
+        }
+
+        .button:active {
+            background-color: #7F7F7F;
+        }
+    </style>
+</head>
+<body>
+<div id="zone_joystick"></div>
+<button id="zone_button1" class="button" style="bottom: 100px; right: 100px;"></button>
+<button id="zone_button2" class="button" style="bottom: 100px; right: 300px;"></button>
+<div>
+    <div id="position">
+        position :
+        <ul>
+            <li class="x">x : <span class='data'></span></li>
+            <li class="y">y : <span class='data'></span></li>
+        </ul>
+    </div>
+</div>
+<script>
+    var s = function (sel) {
+        return document.querySelector(sel);
+    };
+    var sId = function (sel) {
+        return document.getElementById(sel);
+    };
+
+    const zone_joystick = sId('zone_joystick');
+
+    const joystickPosition = {
+        bottom: '100px',
+        left: '100px'
+    };
+
+    zone_joystick.style.bottom = joystickPosition.bottom;
+    zone_joystick.style.left = joystickPosition.left;
+
+    var radius = 100;
+
+    var sampleJoystick = {
+        mode: 'static',
+        position: joystickPosition,
+        size: radius * 2,
+        color: 'black',
+       zone: zone_joystick,
+        restJoystick: true
+    };
+
+    var elDebug = sId('position');
+    var xField = elDebug.querySelector('.x .data');
+    var yField = elDebug.querySelector('.y .data');
+
+    var joystick;
+    var position;
+    joystick = nipplejs.create(sampleJoystick);
+    joystick.on('start end', function (evt, data) {
+        position = data.position;
+        xField.innerHTML = position.x;
+        yField.innerHTML = position.y;
+    }).on('move end', function (evt, data) {
+        position = data.position;
+        xField.innerHTML = position.x;
+        yField.innerHTML = position.y;
+    }).on('dir:up plain:up dir:left plain:left dir:down' +
+        'plain:down dir:right plain:right',
+        function (evt, data) {
             position = data.position;
             xField.innerHTML = position.x;
             yField.innerHTML = position.y;
-         }).on('move end', function(evt, data) {
-            position = data.position;
-            xField.innerHTML = position.x;
-            yField.innerHTML = position.y;
-         }).on('dir:up plain:up dir:left plain:left dir:down' +
-            'plain:down dir:right plain:right',
-            function(evt, data) {
-               position = data.position;
-               xField.innerHTML = position.x;
-               yField.innerHTML = position.y;
-            }
-         ).on('pressure', function(evt, data) {
-            position = data.position;
-            xField.innerHTML = position.x;
-            yField.innerHTML = position.y;
-         });
-      </script>
-   </body>
+        }
+    ).on('pressure', function (evt, data) {
+        position = data.position;
+        xField.innerHTML = position.x;
+        yField.innerHTML = position.y;
+    });
+</script>
+</body>
 </html>
