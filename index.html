@@ -49,6 +49,8 @@
     </div>
 </div>
 <script>
+    const GLOBAL_SIZE = 0.5;
+
     var s = function (sel) {
         return document.querySelector(sel);
     };
@@ -59,14 +61,24 @@
     const zone_joystick = sId('zone_joystick');
 
     const joystickPosition = {
-        bottom: '100px',
-        left: '100px'
+        bottom: `${100 * GLOBAL_SIZE}px`,
+        left: `${100 * GLOBAL_SIZE}px`
     };
 
     zone_joystick.style.bottom = joystickPosition.bottom;
     zone_joystick.style.left = joystickPosition.left;
 
-    var radius = 100;
+    var radius = 100 * GLOBAL_SIZE;
+
+    sId("zone_button1").style.width = `${150 * GLOBAL_SIZE}px`;
+    sId("zone_button1").style.height = `${150 * GLOBAL_SIZE}px`;
+    sId("zone_button1").style.bottom = `${100 * GLOBAL_SIZE}px`;
+    sId("zone_button1").style.right = `${100 * GLOBAL_SIZE}px`;
+
+    sId("zone_button2").style.width = `${150 * GLOBAL_SIZE}px`;
+    sId("zone_button2").style.height = `${150 * GLOBAL_SIZE}px`;
+    sId("zone_button2").style.bottom = `${100 * GLOBAL_SIZE}px`;
+    sId("zone_button2").style.right = `${300 * GLOBAL_SIZE}px`;
 
     var sampleJoystick = {
         mode: 'static',
