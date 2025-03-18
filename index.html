@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js"></script>
+    <link href="https://fonts.cdnfonts.com/css/nougat" rel="stylesheet">
     <style>
         * {
             /*Enable panning and pinch zoom gestures, but disable additional non-standard gestures such as double-tap to zoom.*/
             touch-action: none;
+            font-family: 'Nougat', cursive;
         }
 
         /* Make the joystick appear in the bottom-left corner */
@@ -34,20 +36,36 @@
             width: 150px;
             height: 150px;
             background-color: #BFBFBF;
-           border: none;
-           border-radius: 100%;
-           transition: background-color 0.3s;
+            border: none;
+            border-radius: 100%;
+            transition: background-color 0.3s;
         }
 
         .button:active {
             background-color: #7F7F7F;
         }
+
+        .front {
+            background-image: url('movement.png') !important;
+            background-size: cover !important;
+        }
+
+        .back {
+            background: rgba(66, 162, 252, 0.35) !important;
+            outline: thick solid rgb(66, 162, 252) !important;
+        }
     </style>
 </head>
 <body>
+<div style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 32px">
+    <img src="logo.png" alt="logo" style="width: 100px; height: 100px">
+    <h1 style="font-size: 64px; margin: 0">Brawl Bot</h1>
+</div>
 <div id="zone_joystick"></div>
-<button id="zone_button1" class="button" style="bottom: 100px; right: 100px;"></button>
-<button id="zone_button2" class="button" style="bottom: 100px; right: 300px;"></button>
+<button id="zone_button1" class="button"
+        style="bottom: 100px; right: 100px; background-image: url('target.png'); background-size: cover"></button>
+<button id="zone_button2" class="button"
+        style="bottom: 100px; right: 300px; background-image: url('super.png'); background-size: cover"></button>
 <div>
     <div id="position">
         position :
@@ -58,7 +76,7 @@
     </div>
 </div>
 <script>
-    const GLOBAL_SIZE = 0.5;
+    const GLOBAL_SIZE = 1;
 
     var s = function (sel) {
         return document.querySelector(sel);
@@ -93,9 +111,9 @@
         mode: 'static',
         position: joystickPosition,
         size: radius * 2,
-        color: 'black',
-       zone: zone_joystick,
-        restJoystick: true
+        color: 'blue',
+        zone: zone_joystick,
+        restJoystick: true,
     };
 
     var elDebug = sId('position');
