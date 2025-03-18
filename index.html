@@ -4,13 +4,25 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
-      <script src="
-         https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js
-         "></script>
+      <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.10.2/dist/nipplejs.min.js"></script>
+      <style>
+         /* Make the joystick appear in the bottom-left corner */
+         #zone_joystick {
+            position: fixed;
+            left: 10%;
+            bottom: 15%;
+            width: 100px; /* You can adjust this size to suit the joystick */
+            height: 100px; /* You can adjust this size to suit the joystick */
+         }
+
+         /* Center the joystick within the container */
+         #zone_joystick .nipple {
+            margin: auto;
+         }
+      </style>
    </head>
    <body>
-      <div id="zone_joystick">
-      </div>
+      <div id="zone_joystick"></div>
       <div>
          <div id="position">
             position :
@@ -22,22 +34,22 @@
       </div>
       <script>
          var s = function(sel) {
-         return document.querySelector(sel);
+            return document.querySelector(sel);
          };
          var sId = function(sel) {
-         return document.getElementById(sel);
+            return document.getElementById(sel);
          };
          
          var radius = 100;
          
          var sampleJoystick = {
-         mode: 'static',
-         position: {
-         left: '50%',
-         top: '50%'
-         },
-         size: radius*2,
-         color: 'black'
+            mode: 'static',
+            position: {
+               bottom: '15%',
+               left: '10%'
+            },
+            size: radius * 2,
+            color: 'black'
          };
          
          var elDebug = sId('position');
@@ -48,27 +60,25 @@
          var position;
          joystick = nipplejs.create(sampleJoystick);
          joystick.on('start end', function(evt, data) {
-         position = data.position;
-         xField.innerHTML = position.x;
-         yField.innerHTML = position.y;
+            position = data.position;
+            xField.innerHTML = position.x;
+            yField.innerHTML = position.y;
          }).on('move end', function(evt, data) {
-         position = data.position;
-         xField.innerHTML = position.x;
-         yField.innerHTML = position.y;
+            position = data.position;
+            xField.innerHTML = position.x;
+            yField.innerHTML = position.y;
          }).on('dir:up plain:up dir:left plain:left dir:down' +
-         'plain:down dir:right plain:right',
-         function(evt, data) {
-         position = data.position;
-         xField.innerHTML = position.x;
-         yField.innerHTML = position.y;
-         }
+            'plain:down dir:right plain:right',
+            function(evt, data) {
+               position = data.position;
+               xField.innerHTML = position.x;
+               yField.innerHTML = position.y;
+            }
          ).on('pressure', function(evt, data) {
-         position = data.position;
-         xField.innerHTML = position.x;
-         yField.innerHTML = position.y;
+            position = data.position;
+            xField.innerHTML = position.x;
+            yField.innerHTML = position.y;
          });
-         
-         
       </script>
    </body>
 </html>
