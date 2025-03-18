@@ -132,8 +132,12 @@
     ).on('pressure', function (evt, data) {
         updatePosition(data)
     }).on('end', function (evt, data) {
-        xField.innerHTML = 0;
-        yField.innerHTML = 0;
+        updatePosition({
+            vector: {
+                x: 0,
+                y: 0
+            }
+        })
     });
 </script>
 </body>
