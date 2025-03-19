@@ -97,6 +97,11 @@
     zone_joystick.style.left = joystickPosition.left;
 
     var radius = 100 * GLOBAL_SIZE;
+	
+	var vector = {
+		x: 0,
+		y: 0
+	}
 
     sId("zone_button1").style.width = `${150 * GLOBAL_SIZE}px`;
     sId("zone_button1").style.height = `${150 * GLOBAL_SIZE}px`;
@@ -107,6 +112,16 @@
     sId("zone_button2").style.height = `${150 * GLOBAL_SIZE}px`;
     sId("zone_button2").style.bottom = `${100 * GLOBAL_SIZE}px`;
     sId("zone_button2").style.right = `${300 * GLOBAL_SIZE}px`;
+	
+	sId("zone_button2").addEventListener("click", (event) => {
+		if (window.AppInventor) {
+            window.AppInventor.setWebViewString(JSON.stringify({
+                x: vector.x,
+                y: vector.y,
+				superButton: true,
+            }));
+        }
+	})
 
     var sampleJoystick = {
         mode: 'static',
@@ -131,10 +146,13 @@
         xField.innerHTML = data.vector.x;
         yField.innerHTML = data.vector.y;
 
+		vector = data.vector
+
         if (window.AppInventor) {
             window.AppInventor.setWebViewString(JSON.stringify({
                 x: data.vector.x,
-                y: data.vector.y
+                y: data.vector.y,
+				superButton: false
             }));
         }
     }
