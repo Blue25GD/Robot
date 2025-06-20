@@ -159,10 +159,17 @@
 		vector = data.vector
 
         if (window.AppInventor) {
+            let zoneX = x < -0.33 ? 0 : x > 0.33 ? 2 : 1;
+            let zoneY = y < -0.33 ? 0 : y > 0.33 ? 2 : 1;
+            if (zoneY * 3 + zoneX === zone_id) {
+                return; // No change in zone
+            }
+            zone_id = zoneY * 3 + zoneX;
             window.AppInventor.setWebViewString(JSON.stringify({
-                x: data.vector.x,
-                y: data.vector.y,
-				superButton: false
+                // x: data.vector.x,
+                // y: data.vector.y,
+				// superButton: false,
+                zone_id,
             }));
         }
     }
