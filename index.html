@@ -117,8 +117,8 @@
 	
 	sId("zone_button2").addEventListener("click", (event) => {
 		if (window.AppInventor) {
-            let zoneX = x < -0.33 ? 0 : x > 0.33 ? 2 : 1;
-            let zoneY = y < -0.33 ? 0 : y > 0.33 ? 2 : 1;
+            let zoneX = vector.x < -0.33 ? 0 : vector.x > 0.33 ? 2 : 1;
+            let zoneY = vector.y < -0.33 ? 0 : vector.y > 0.33 ? 2 : 1;
             if (zoneY * 3 + zoneX === zone_id) {
                 return; // No change in zone
             }
@@ -159,8 +159,8 @@
 		vector = data.vector
 
         if (window.AppInventor) {
-            let zoneX = x < -0.33 ? 0 : x > 0.33 ? 2 : 1;
-            let zoneY = y < -0.33 ? 0 : y > 0.33 ? 2 : 1;
+            let zoneX = data.vector.x < -0.33 ? 0 : data.vector.x > 0.33 ? 2 : 1;
+            let zoneY = data.vector.y < -0.33 ? 0 : data.vector.y > 0.33 ? 2 : 1;
             if (zoneY * 3 + zoneX === zone_id) {
                 return; // No change in zone
             }
