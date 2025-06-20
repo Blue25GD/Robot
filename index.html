@@ -112,13 +112,23 @@
     sId("zone_button2").style.height = `${150 * GLOBAL_SIZE}px`;
     sId("zone_button2").style.bottom = `${100 * GLOBAL_SIZE}px`;
     sId("zone_button2").style.right = `${300 * GLOBAL_SIZE}px`;
+
+    let zone_id = 4 // Deadzone
 	
 	sId("zone_button2").addEventListener("click", (event) => {
 		if (window.AppInventor) {
+            let zoneX = x < -0.33 ? 0 : x > 0.33 ? 2 : 1;
+            let zoneY = y < -0.33 ? 0 : y > 0.33 ? 2 : 1;
+            if (zoneY * 3 + zoneX === zone_id) {
+                return; // No change in zone
+            }
+            zone_id = zoneY * 3 + zoneX;
+
             window.AppInventor.setWebViewString(JSON.stringify({
-                x: vector.x,
-                y: vector.y,
-				superButton: true,
+                // x: vector.x,
+                // y: vector.y,
+				// superButton: true,
+                zone_id
             }));
         }
 	})
